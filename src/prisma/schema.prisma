@@ -1,0 +1,121 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// one to one Cart
+// one to many Order
+model User {
+  id       String  @id @default(uuid())
+  name     String
+  email    String  @unique
+  password String
+  orders   Order[]
+  cart     Cart?   @relation(fields: [cartId], references: [id])
+  cartId   String? @unique
+}
+
+// one to one Menu
+model Owner {
+  id       String  @id @default(uuid())
+  name     String
+  email    String  @unique
+  isOwner  Boolean @default(true)
+  password String
+  Menu     Menu?   @relation(fields: [menuId], references: [id])
+  menuId   String? @unique
+}
+
+enum Status {
+  prepairng
+  delivering
+  delivered
+}
+
+// many to one  User
+// many to one Menu
+// many to many Item
+
+model Order {
+  id     Int            @id @default(autoincrement())
+  status Status         @default(prepairng)
+  user   User?          @relation(fields: [userId], references: [id])
+  userId String?
+  menu   Menu?          @relation(fields: [menuId], references: [id])
+  menuId String?
+  items  ItemsOnOrder[]
+}
+
+enum Categories {
+  pizza
+  burger
+  pasta
+  dessert
+  drinks
+}
+
+// one to one Owner
+// one to many Order
+// one to many Item
+model Menu {
+  id       String       @id @default(uuid())
+  name     String       @unique
+  category Categories[]
+  orders   Order[]
+  items    Item[]
+
+  Owner Owner?
+}
+
+// many to many Order
+// many to one Menu 
+// many to many Cart
+model Item {
+  id           Int            @id @default(autoincrement())
+  name         String
+  description  String
+  ItemsOnOrder ItemsOnOrder[]
+  Menu         Menu?          @relation(fields: [menuId], references: [id])
+  menuId       String?
+  carts        ItemsOnCart[]
+}
+
+// join table Item Order
+model ItemsOnOrder {
+  item       Item     @relation(fields: [itemId], references: [id])
+  itemId     Int
+  order      Order    @relation(fields: [orderId], references: [id])
+  orderId    Int
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([itemId, orderId])
+}
+
+// join table Item Cart
+model ItemsOnCart {
+  item       Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId     Int
+  cart       Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cartId     String
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([itemId, cartId])
+}
+
+// one to one User
+// one to many Item
+model Cart {
+  id     String        @id @default(uuid())
+  user   User?
+  items  ItemsOnCart[]
+  menuId String?
+}
