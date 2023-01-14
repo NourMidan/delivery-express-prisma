@@ -1,8 +1,7 @@
 import { compare, hash } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { Categories, Menu, Owner, PrismaClient, User } from '@prisma/client';
+import { Categories, Menu, Owner, PrismaClient } from '@prisma/client';
 import { SECRET_KEY } from '@config';
-import { CreateUserDto, LoginUserDto } from '@dtos/users.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { DataStoredInToken, OwnerWithType, TokenData } from '@interfaces/auth.interface';
 import { isEmpty } from '@utils/util';

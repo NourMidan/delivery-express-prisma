@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
-import { Item, Owner, User } from '@prisma/client';
-import { RequestWithOwner, RequestWithUser } from '@interfaces/auth.interface';
+import { NextFunction, Response } from 'express';
+import { Item, Owner } from '@prisma/client';
+import { RequestWithOwner } from '@interfaces/auth.interface';
 import ItemsService from '@/services/items.service';
 import { CreateItemDto } from '@/dtos/items.dto';
 

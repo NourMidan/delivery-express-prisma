@@ -1,26 +1,8 @@
-import { compare, hash } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
-import { Cart, Categories, Item, Menu, Owner, PrismaClient, User } from '@prisma/client';
-import { SECRET_KEY } from '@config';
-import { CreateUserDto, LoginUserDto } from '@dtos/users.dto';
+import { Cart, Item, PrismaClient, User } from '@prisma/client';
 import { HttpException } from '@exceptions/HttpException';
-import {
-  CartWithItems,
-  DataStoredInToken,
-  ItemWithMenu,
-  OwnerWithType,
-  RequestWithUser,
-  RequestWithUserWithCartWithItems,
-  TokenData,
-  UserWithCart,
-  UserWithCartWithItems,
-} from '@interfaces/auth.interface';
-import { isEmpty } from '@utils/util';
-import { CreateOwnerDto, LoginOwnerDto } from '@/dtos/owners.dto';
-import { CreateItemDto, UpdateItemDto } from '@/dtos/items.dto';
+import { ItemWithMenu, UserWithCart, UserWithCartWithItems } from '@interfaces/auth.interface';
 
 class CartsService {
-  public owners = new PrismaClient().owner;
   public items = new PrismaClient().item;
   public carts = new PrismaClient().cart;
   public itemsOnCart = new PrismaClient().itemsOnCart;

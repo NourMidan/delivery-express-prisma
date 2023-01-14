@@ -4,11 +4,20 @@ import IndexRoute from '@routes/index.route';
 import validateEnv from '@utils/validateEnv';
 import CartsRoutes from './routes/carts.route';
 import ItemsRoutes from './routes/items.route';
+import MenusRoutes from './routes/menus.route';
 import OrdersRoutes from './routes/orders.route';
 import OwnersAuthRoute from './routes/ownersAuth.route';
 
 validateEnv();
 
-const app = new App([new IndexRoute(), new UsersAuthRoute(), new OwnersAuthRoute(), new ItemsRoutes(), new CartsRoutes(), new OrdersRoutes()]);
+const app = new App([
+  new IndexRoute(),
+  new UsersAuthRoute(),
+  new OwnersAuthRoute(),
+  new ItemsRoutes(),
+  new CartsRoutes(),
+  new OrdersRoutes(),
+  new MenusRoutes(),
+]);
 
 app.listen();

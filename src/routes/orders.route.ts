@@ -1,9 +1,6 @@
 import { Router } from 'express';
 import { Routes } from '@interfaces/routes.interface';
 import authMiddleware from '@middlewares/auth.middleware';
-import validationMiddleware from '@middlewares/validation.middleware';
-import { CreateItemDto, UpdateItemDto } from '@/dtos/items.dto';
-import CartsController from '@/controllers/carts.controller';
 import OrdersController from '@/controllers/orders.controller';
 
 class OrdersRoutes implements Routes {

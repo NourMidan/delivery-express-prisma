@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Owner, User } from '@prisma/client';
-import { CreateUserDto } from '@dtos/users.dto';
+import { Owner } from '@prisma/client';
 import { RequestWithOwner, RequestWithUser } from '@interfaces/auth.interface';
 import AuthService from '@/services/ownersAuth.service';
 import { CreateOwnerDto, LoginOwnerDto } from '@/dtos/owners.dto';

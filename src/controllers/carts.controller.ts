@@ -1,8 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
-import { Cart, Item, Owner, User } from '@prisma/client';
-import { RequestWithOwner, RequestWithUser, RequestWithUserWithCart, RequestWithUserWithCartWithItems } from '@interfaces/auth.interface';
-import ItemsService from '@/services/items.service';
-import { CreateItemDto } from '@/dtos/items.dto';
+import { NextFunction, Response } from 'express';
+import { Cart } from '@prisma/client';
+import { RequestWithUser, RequestWithUserWithCart, RequestWithUserWithCartWithItems } from '@interfaces/auth.interface';
+
 import CartsService from '@/services/carts.service';
 
 class CartsController {

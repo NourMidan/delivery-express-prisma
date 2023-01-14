@@ -1,16 +1,9 @@
-import { compare, hash } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
-import { Categories, Item, Menu, Owner, PrismaClient, User } from '@prisma/client';
-import { SECRET_KEY } from '@config';
-import { CreateUserDto, LoginUserDto } from '@dtos/users.dto';
+import { Item, Owner, PrismaClient } from '@prisma/client';
 import { HttpException } from '@exceptions/HttpException';
-import { DataStoredInToken, OwnerWithType, TokenData } from '@interfaces/auth.interface';
 import { isEmpty } from '@utils/util';
-import { CreateOwnerDto, LoginOwnerDto } from '@/dtos/owners.dto';
 import { CreateItemDto, UpdateItemDto } from '@/dtos/items.dto';
 
 class ItemsService {
-  public owners = new PrismaClient().owner;
   public items = new PrismaClient().item;
 
   public async create(itemData: CreateItemDto, owner: Owner): Promise<Item> {
